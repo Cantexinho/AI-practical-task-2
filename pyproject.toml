@@ -8,11 +8,18 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "scikit-learn>=1.6.1",
-    "pandas>=2.2.3"
+    "scikit-learn<=1.6.1",
+    "pandas<=2.2.3",
+    "joblib<=1.4.2",
+    "pydantic<=2.11.1",
+    "pydantic-settings<=2.8.1",
 ]
 
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry.scripts]
+train_and_test = "naive_bayes_knn_algorithms.__main__:main"
