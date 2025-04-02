@@ -5,6 +5,8 @@ from naive_bayes_knn_algorithms.preprocessor import get_preprocessor
 from naive_bayes_knn_algorithms.training.model_trainer import get_model_trainer
 from naive_bayes_knn_algorithms.evaluation.evaluator import get_evaluator
 
+from naive_bayes_knn_algorithms.conf.root import root_settings
+
 
 class Worker:
     def __init__(
@@ -24,6 +26,9 @@ class Worker:
         """Run the worker."""
         self.preprocessor.load_data(self.data_location)
         train_test_data = self.preprocessor.preprocess_data()
+        self.preprocessor.save_vectorizer(
+            root_settings.get_vectorizer_save_path(self.model_name)
+        )
 
         self.trainer.load_data(
             model=self.model,
