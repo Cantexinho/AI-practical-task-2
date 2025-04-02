@@ -1,5 +1,4 @@
 import logging
-
 import time
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -8,6 +7,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class RootSettings(BaseSettings):
 
     ml_models_path: str
+    dataset_path: str
     log_format: str = "%(asctime)s\t%(levelname)s %(name)s: %(module)s.py %(message)s"
     log_level: int = logging.DEBUG
 
@@ -23,6 +23,9 @@ class RootSettings(BaseSettings):
 
     def get_ml_models_save_path(self, model_name: str) -> str:
         return f"{self.ml_models_path}/{model_name}.pkl"
+
+    def get_vectorizer_save_path(self, model_name: str) -> str:
+        return f"{self.ml_models_path}/{model_name}_vectorizer.pkl"
 
 
 root_settings = RootSettings()

@@ -1,5 +1,6 @@
 import pandas as pd
 import logging
+import joblib
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
@@ -64,6 +65,14 @@ class PreProcessor:
         split_train_test_data = self._split_train_test(vectorized_text, labels)
 
         return split_train_test_data
+
+    def save_vectorizer(self, file_path: str):
+        """Save the vectorizer to a file."""
+        _logger.info("Saving vectorizer to file.")
+        try:
+            joblib.dump(self._vectorizer, file_path)
+        except Exception as e:
+            raise ValueError(f"Error saving vectorizer: {e}")
 
 
 _pre_processor = PreProcessor(vectorizer=TfidfVectorizer(stop_words="english"))
